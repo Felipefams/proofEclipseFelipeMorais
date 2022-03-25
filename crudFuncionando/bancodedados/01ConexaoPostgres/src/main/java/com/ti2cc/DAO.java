@@ -8,11 +8,11 @@ public class DAO {
 	public DAO() {
 		conexao = null;
 	}
-	
+	//esse metodo vai ficar quase igual o do exemplo
 	public boolean conectar() {
 		String driverName = "org.postgresql.Driver";                    
 		String serverName = "localhost";
-		String mydatabase = "teste";
+		String mydatabase = "testeFelipe";
 		int porta = 5432;
 		String url = "jdbc:postgresql://" + serverName + ":" + porta +"/" + mydatabase;
 		String username = "ti2cc";
@@ -23,11 +23,11 @@ public class DAO {
 			Class.forName(driverName);
 			conexao = DriverManager.getConnection(url, username, password);
 			status = (conexao == null);
-			System.out.println("Conexão efetuada com o postgres!");
+			System.out.println("Conex������������������o efetuada com o postgres!");
 		} catch (ClassNotFoundException e) { 
-			System.err.println("Conexão NÃO efetuada com o postgres -- Driver não encontrado -- " + e.getMessage());
+			System.err.println("Conex������������������o N������������������O efetuada com o postgres -- Driver n������������������o encontrado -- " + e.getMessage());
 		} catch (SQLException e) {
-			System.err.println("Conexão NÃO efetuada com o postgres -- " + e.getMessage());
+			System.err.println("Conex������������������o N������������������O efetuada com o postgres -- " + e.getMessage());
 		}
 
 		return status;
@@ -45,11 +45,11 @@ public class DAO {
 		return status;
 	}
 	
-	public boolean inserirUsuario(Usuario usuario) {
+	public boolean insertAnime(Usuario usuario) {
 		boolean status = false;
 		try {  
 			Statement st = conexao.createStatement();
-			st.executeUpdate("INSERT INTO usuario (codigo, login, senha, sexo) "
+			st.executeUpdate("INSERT INTO animes (japanesename, americanname, gender, studio) "
 					       + "VALUES ("+usuario.getCodigo()+ ", '" + usuario.getLogin() + "', '"  
 					       + usuario.getSenha() + "', '" + usuario.getSexo() + "');");
 			st.close();

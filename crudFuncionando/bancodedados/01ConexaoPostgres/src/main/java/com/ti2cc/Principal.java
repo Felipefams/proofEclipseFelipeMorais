@@ -12,33 +12,33 @@ public class Principal {
 		//Inserir um elemento na tabela
 		Usuario usuario = new Usuario(11, "pablo", "pablo",'M');
 		if(dao.inserirUsuario(usuario) == true) {
-			System.out.println("Inserção com sucesso -> " + usuario.toString());
+			System.out.println("Inser������������o com sucesso -> " + usuario.toString());
 		}
 		
-		//Mostrar usuários do sexo masculino		
-		System.out.println("==== Mostrar usuários do sexo masculino === ");
+		//Mostrar usu������rios do sexo masculino		
+		System.out.println("==== Mostrar usu������rios do sexo masculino === ");
 		Usuario[] usuarios = dao.getUsuariosMasculinos();
 		for(int i = 0; i < usuarios.length; i++) {
 			System.out.println(usuarios[i].toString());
 		}
 
-		//Atualizar usuário
+		//Atualizar usu������rio
 		usuario.setSenha("nova senha");
 		dao.atualizarUsuario(usuario);
 
-		//Mostrar usuários do sexo masculino
-		System.out.println("==== Mostrar usuários === ");
+		//Mostrar usu������rios do sexo masculino
+		System.out.println("==== Mostrar usu������rios === ");
 		usuarios = dao.getUsuarios();
 		for(int i = 0; i < usuarios.length; i++) {
 			System.out.println(usuarios[i].toString());
 		}
 		
-		//Excluir usuário
+		//Excluir usu������rio
 		dao.excluirUsuario(usuario.getCodigo());
 		
-		//Mostrar usuários
+		//Mostrar usu������rios
 		usuarios = dao.getUsuarios();
-		System.out.println("==== Mostrar usuários === ");		
+		System.out.println("==== Mostrar usu������rios === ");		
 		for(int i = 0; i < usuarios.length; i++) {
 			System.out.println(usuarios[i].toString());
 		}
