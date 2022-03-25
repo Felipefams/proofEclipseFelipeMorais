@@ -1,4 +1,4 @@
-package com.ti2cc;
+package com.myTI;
 
 import java.sql.*;
 
@@ -23,16 +23,16 @@ public class DAO {
 			Class.forName(driverName);
 			conexao = DriverManager.getConnection(url, username, password);
 			status = (conexao == null);
-			System.out.println("Conex��o efetuada com o postgres!");
+			System.out.println("Conex������������������o efetuada com o postgres!");
 		} catch (ClassNotFoundException e) { 
-			System.err.println("Conex��o N��O efetuada com o postgres -- Driver n��o encontrado -- " + e.getMessage());
+			System.err.println("Conex������������������o N������������������O efetuada com o postgres -- Driver n������������������o encontrado -- " + e.getMessage());
 		} catch (SQLException e) {
-			System.err.println("Conex��o N��O efetuada com o postgres -- " + e.getMessage());
+			System.err.println("Conex������������������o N������������������O efetuada com o postgres -- " + e.getMessage());
 		}
 
 		return status;
 	}
-	
+	//mesmo tambem
 	public boolean close() {
 		boolean status = false;
 		
@@ -44,14 +44,14 @@ public class DAO {
 		}
 		return status;
 	}
-	
-	public boolean insertAnime(Usuario usuario) {
+	//aqui ja muda
+	public boolean inserirAnime(Anime anime) {
 		boolean status = false;
 		try {  
 			Statement st = conexao.createStatement();
 			st.executeUpdate("INSERT INTO animes (japanesename, americanname, gender, studio) "
-					       + "VALUES ("+usuario.getCodigo()+ ", '" + usuario.getLogin() + "', '"  
-					       + usuario.getSenha() + "', '" + usuario.getSexo() + "');");
+					       + "VALUES ("+anime.getJapaneseName()+ ", '" + anime.getAmericanName() + "', '"  
+					       + anime.getGender() + "', '" + anime.getStudio() + "');");
 			st.close();
 			status = true;
 		} catch (SQLException u) {  
@@ -60,13 +60,13 @@ public class DAO {
 		return status;
 	}
 	
-	public boolean atualizarUsuario(Usuario usuario) {
+	public boolean atualizarAnime(Anime anime) {
 		boolean status = false;
 		try {  
 			Statement st = conexao.createStatement();
-			String sql = "UPDATE usuario SET login = '" + usuario.getLogin() + "', senha = '"  
-				       + usuario.getSenha() + "', sexo = '" + usuario.getSexo() + "'"
-					   + " WHERE codigo = " + usuario.getCodigo();
+			String sql = "UPDATE anime SET japanesename = '" + anime.getJapaneseName() + "', americanname = '"  
+				       + anime.getGender() + "', studio = '" + anime.getStudio() + "'"
+					   + " WHERE animeID = " + anime.getID();
 			st.executeUpdate(sql);
 			st.close();
 			status = true;
@@ -76,11 +76,11 @@ public class DAO {
 		return status;
 	}
 	
-	public boolean excluirUsuario(int codigo) {
+	public boolean excluirAnime(int animeID) {
 		boolean status = false;
 		try {  
 			Statement st = conexao.createStatement();
-			st.executeUpdate("DELETE FROM usuario WHERE codigo = " + codigo);
+			st.executeUpdate("DELETE FROM anime WHERE animeID = " + animeID);
 			st.close();
 			status = true;
 		} catch (SQLException u) {  
@@ -90,50 +90,27 @@ public class DAO {
 	}
 	
 	
-	public Usuario[] getUsuarios() {
-		Usuario[] usuarios = null;
+	public Anime[] getAnimes() {
+		Anime[] animes = null;
 		
 		try {
 			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-			ResultSet rs = st.executeQuery("SELECT * FROM usuario");		
+			ResultSet rs = st.executeQuery("SELECT * FROM anime");		
 	         if(rs.next()){
 	             rs.last();
-	             usuarios = new Usuario[rs.getRow()];
+	             animes = new Anime[rs.getRow()];
 	             rs.beforeFirst();
 
 	             for(int i = 0; rs.next(); i++) {
-	                usuarios[i] = new Usuario(rs.getInt("codigo"), rs.getString("login"), 
-	                		                  rs.getString("senha"), rs.getString("sexo").charAt(0));
+	                animes[i] = new Anime(rs.getInt("animeID"), rs.getString("japanesename"), 
+	                		                  rs.getString("amricanname"), rs.getString("gender"), rs.getString("studio"));
 	             }
 	          }
 	          st.close();
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
-		return usuarios;
+		return animes;
 	}
-
 	
-	public Usuario[] getUsuariosMasculinos() {
-		Usuario[] usuarios = null;
-		
-		try {
-			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-			ResultSet rs = st.executeQuery("SELECT * FROM usuario WHERE usuario.sexo LIKE 'M'");		
-	         if(rs.next()){
-	             rs.last();
-	             usuarios = new Usuario[rs.getRow()];
-	             rs.beforeFirst();
-
-	             for(int i = 0; rs.next(); i++) {
-		                usuarios[i] = new Usuario(rs.getInt("codigo"), rs.getString("login"), 
-                         		                  rs.getString("senha"), rs.getString("sexo").charAt(0));
-	             }
-	          }
-	          st.close();
-		} catch (Exception e) {
-			System.err.println(e.getMessage());
-		}
-		return usuarios;
-	}
 }

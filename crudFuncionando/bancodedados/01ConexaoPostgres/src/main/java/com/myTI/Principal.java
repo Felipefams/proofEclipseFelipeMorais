@@ -1,4 +1,4 @@
-package com.ti2cc;
+package com.myTI;
 
 public class Principal {
 	
@@ -10,37 +10,23 @@ public class Principal {
 
 		
 		//Inserir um elemento na tabela
-		Usuario usuario = new Usuario(11, "pablo", "pablo",'M');
-		if(dao.inserirUsuario(usuario) == true) {
-			System.out.println("Inserção com sucesso -> " + usuario.toString());
+		Anime anime = new Anime(11, "pablo", "pablo",'M');
+		if(dao.inserirAnime(anime) == true) {
+			System.out.println("Inser������������o com sucesso -> " + anime.toString());
 		}
+		//Atualizar usu������rio
+		anime.setJapaneseName("nova senha");
+		dao.atualizarAnime(anime);
 		
-		//Mostrar usuários do sexo masculino		
-		System.out.println("==== Mostrar usuários do sexo masculino === ");
-		Usuario[] usuarios = dao.getUsuariosMasculinos();
-		for(int i = 0; i < usuarios.length; i++) {
-			System.out.println(usuarios[i].toString());
-		}
-
-		//Atualizar usuário
-		usuario.setSenha("nova senha");
-		dao.atualizarUsuario(usuario);
-
-		//Mostrar usuários do sexo masculino
-		System.out.println("==== Mostrar usuários === ");
-		usuarios = dao.getUsuarios();
-		for(int i = 0; i < usuarios.length; i++) {
-			System.out.println(usuarios[i].toString());
-		}
+		//Excluir usu������rio
+		dao.excluirAnime(anime.getID());
 		
-		//Excluir usuário
-		dao.excluirUsuario(usuario.getCodigo());
-		
-		//Mostrar usuários
-		usuarios = dao.getUsuarios();
-		System.out.println("==== Mostrar usuários === ");		
-		for(int i = 0; i < usuarios.length; i++) {
-			System.out.println(usuarios[i].toString());
+		//Mostrar usu������rios
+		Anime[] animes = null;
+		animes = dao.getAnimes();
+		System.out.println("==== Mostrar usu������rios === ");		
+		for(int i = 0; i < animes.length; i++) {
+			System.out.println(animes[i].toString());
 		}
 		
 		dao.close();

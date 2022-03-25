@@ -1,21 +1,33 @@
-package com.ti2cc;
+package com.myTI;
 
 public class Anime {
+	//A maioria foi setada como string para facilitar no inicio...
+	private int animeID;
 	private String japaneseName;
 	private String americanName;
 	private String gender;
 	private String studio;
 	
 	
-	
-	public Anime(String japaneseName, String americanName, String gender, String studio) {
+	public Anime(int i, String string, String string2, char c) {
+		this.animeID = -1;
+		this.japaneseName = "";
+		this.americanName = "";
+		this.gender = "";
+		this.studio = "";
+	}
+	public Anime(int animeID, String japaneseName, String americanName, String gender, String studio) {
 		super();
+		this.animeID = animeID;
 		this.japaneseName = japaneseName;
 		this.americanName = americanName;
 		this.gender = gender;
 		this.studio = studio;
 	}
-	
+	//set animeID nao vai existir;
+	int getID() {
+		return animeID;
+	}
 	public String getJapaneseName() {
 		return japaneseName;
 	}
@@ -41,10 +53,9 @@ public class Anime {
 		this.studio = studio;
 	}
 	
-	
 	@Override
 	public String toString() {
-		return "Anime [japaneseName=" + japaneseName + ", americanName=" + americanName + ", gender=" + gender
+		return "Anime [ animeID = " + animeID + "japaneseName=" + japaneseName + ", americanName=" + americanName + ", gender=" + gender
 				+ ", studio=" + studio + ", getJapaneseName()=" + getJapaneseName() + ", getAmericanName()="
 				+ getAmericanName() + ", getGender()=" + getGender() + ", getStudio()=" + getStudio() + ", getClass()="
 				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
