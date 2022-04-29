@@ -10,7 +10,7 @@ public class Principal {
 
 		
 		//Inserir um elemento na tabela
-		Anime anime = new Anime(11, "pablo", "pablo",'M');
+		Anime anime = new Anime();
 		if(dao.inserirAnime(anime) == true) {
 			System.out.println("Inser������������o com sucesso -> " + anime.toString());
 		}
@@ -20,7 +20,6 @@ public class Principal {
 		
 		//Excluir usu������rio
 		dao.excluirAnime(anime.getID());
-		
 		//Mostrar usu������rios
 		Anime[] animes = null;
 		animes = dao.getAnimes();
